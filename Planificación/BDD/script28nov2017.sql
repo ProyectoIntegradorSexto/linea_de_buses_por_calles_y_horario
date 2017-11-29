@@ -1,6 +1,7 @@
 create database LineaBus
 default character set utf8
 collate utf8_unicode_ci;
+
 use LineaBus;
 
 create table Linea(
@@ -20,30 +21,38 @@ constraint R2 foreign key Ruta(idLinea)references Linea(idLinea));
 
 create table CalleRuta(
 idCalleRuta int not null auto_increment,
-descripcion varchar(255)not null,
+idRuta int,
 idCalle int,
 primary key (idCalleRuta),
-constraint R2 foreign key Ruta(idLinea)references Linea(idLinea));
+constraint R3 foreign key CalleRuta(idRuta)references Ruta(idRuta),
+constraint R4 foreign key CalleRuta(idCalle)references Calle(idCalle));
 
 create table Calle(
 idCalle int not null auto_increment,
 descripcion varchar(255)not null,
 ubicacion varchar(255)not null,
-primary key (idCalle),
-constraint R2 foreign key Ruta(idLinea)references Linea(idLinea));
+primary key (idCalle));
 
 create table Tipo(
 idTipo int not null auto_increment,
 descripcion varchar(255)not null,
 primary key (idTipo));
 
-create table Horario(
-idHorario int not null auto_increment,
-hora int not null,
-minuto int not null,
+create table Frecuencia(
+idFrecuencia int not null auto_increment,
+hora varchar(100)not null,
+intervalo varchar(100)not null,
 idLinea int,
-primary key (idHorario),
-constraint R3 foreign key Horario(idLinea)references Linea(idLinea));
+primary key (idFrecuencia));
+
+create table Dia(
+idDia int not null auto_increment,
+idFrecuencia int,
+idLinea int,
+descripcion varchar(100) not null,
+primary key (idDia),
+constraint R5 foreign key Dia(idFrecuencia)references Frecuencia(idFrecuencia),
+constraint R6 foreign key Dia(idLinea)references Linea(idLinea));
 
 
 
