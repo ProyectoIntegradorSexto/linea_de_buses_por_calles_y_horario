@@ -18,6 +18,20 @@ idLinea int,
 primary key (idRuta),
 constraint R2 foreign key Ruta(idLinea)references Linea(idLinea));
 
+create table CalleRuta(
+idCalleRuta int not null auto_increment,
+descripcion varchar(255)not null,
+idCalle int,
+primary key (idCalleRuta),
+constraint R2 foreign key Ruta(idLinea)references Linea(idLinea));
+
+create table Calle(
+idCalle int not null auto_increment,
+descripcion varchar(255)not null,
+ubicacion varchar(255)not null,
+primary key (idCalle),
+constraint R2 foreign key Ruta(idLinea)references Linea(idLinea));
+
 create table Tipo(
 idTipo int not null auto_increment,
 descripcion varchar(255)not null,
